@@ -29,7 +29,6 @@ This project is a hackathon management application that allows organizers to cre
 - **Tailwind CSS** for styling
 - **React Router** for routing
 - **Vite** for project setup and building
-- **Material UI / Bootstrap** (optional, if used for components)
   
 ## Walkthrough Video
 
