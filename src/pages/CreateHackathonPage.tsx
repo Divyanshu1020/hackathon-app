@@ -22,19 +22,16 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { addHackathon, editHackathon } from "@/redux/hackathonsSlice";
-import { RootState } from "@/redux/store";
+import { addHackathon, } from "@/redux/hackathonsSlice";
 import { Hackathon as HackathonType } from "@/types/staticData";
 import { add, format, isBefore } from "date-fns";
 import { Calendar as CalendarIcon, Upload } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const randomImage = [
   cardImage.one,
