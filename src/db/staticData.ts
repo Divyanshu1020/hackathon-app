@@ -83,3 +83,5 @@ export const filterSelectOptions = [
     options: ["Easy", "Medium", "Hard"],
   },
 ];
+
+export const sortSelectOptions = [ "Newest", "Oldest"];

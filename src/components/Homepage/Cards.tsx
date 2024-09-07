@@ -71,25 +71,29 @@ function determineStatus(event: Hackathon) {
 }
 
 export default function Cards() {
-  const { hackathons, filter } = useSelector(
+  const { hackathons, filter, sortOrder } = useSelector(
     (state: RootState) => state.hackathons
   );
 
-  const filteredEvents = hackathons.filter((event) => {
-    const matchesLevel =
-      filter.level.length === 0 || filter.level.includes(event.level);
-    const matchesStatus =
-      filter.status.length === 0 || filter.status.includes(determineStatus(event));
-    const matchesSearch = event.name
-      .toLowerCase()
-      .includes(filter.search.toLowerCase());
+  const filteredAndSortedHackathons = hackathons
+  .filter(hackathon => {
+    const matchesLevel = filter.level.length === 0 || filter.level.includes(hackathon.level);
+    const matchesStatus = filter.status.length === 0 || filter.status.includes(hackathon.status);
+    const matchesSearch = hackathon.name.toLowerCase().includes(filter.search.toLowerCase());
     return matchesLevel && matchesStatus && matchesSearch;
+  })
+  .sort((a, b) => {
+    if (sortOrder === 'Newest') {
+      return new Date(b.startDate ?? "").getTime() - new Date(a.startDate ?? "").getTime();
+    } else {
+      return new Date(a.startDate ?? "").getTime() - new Date(b.startDate ?? "").getTime();
+    }
   });
 
   return (
     <div className=" w-full">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full ">
-        {filteredEvents.map((event: Hackathon) => {
+        {filteredAndSortedHackathons.map((event: Hackathon) => {
           const status = determineStatus(event);
           return (
             <Card key={event.id} className=" flex flex-col overflow-hidden">
@@ -169,7 +173,7 @@ export default function Cards() {
           );
         })}
       </div>
-      {filteredEvents.length === 0 && (
+      {filteredAndSortedHackathons.length === 0 && (
         <div className="flex justify-center items-center w-full h-full">
           <p className=" text-center text-4xl text-white font-semibold">
             No hackathons found

@@ -8,6 +8,7 @@ interface HackathonsState {
     status: string[];
     search: string;
   };
+  sortOrder: string;
 }
 
 const initialState: HackathonsState = {
@@ -17,6 +18,7 @@ const initialState: HackathonsState = {
     status: [],
     search: "",
   },
+  sortOrder: "Newest",
 };
 
 const hackathonsSlice = createSlice({
@@ -42,9 +44,18 @@ const hackathonsSlice = createSlice({
     ) {
       state.filter = { ...state.filter, ...action.payload };
     },
+
+    setSortOrder(state, action: PayloadAction<HackathonsState["sortOrder"]>) {
+      state.sortOrder = action.payload;
+    },
   },
 });
 
-export const { addHackathon, setFilter, editHackathon, deleteHackathon } =
-  hackathonsSlice.actions;
+export const {
+  addHackathon,
+  setFilter,
+  editHackathon,
+  deleteHackathon,
+  setSortOrder,
+} = hackathonsSlice.actions;
 export default hackathonsSlice.reducer;

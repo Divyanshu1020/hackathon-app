@@ -7,6 +7,7 @@ import { RootState } from "../../redux/store";
 
 import { selectedOptionsType } from "@/types/staticData";
 import Filter from "./Filter";
+import Sort from "./Sort";
 
 export default function SearchInput() {
   const [selectedOptions, setSelectedOptions] = useState<selectedOptionsType[]>(
@@ -109,6 +110,7 @@ export default function SearchInput() {
             handleChange={handleChange}
             handleCheckbox={handleCheckbox}
           />
+          <Sort/>
         </div>
       </div>
       <Pills selectedOptions={selectedOptions} removeOption={removeOption} />
