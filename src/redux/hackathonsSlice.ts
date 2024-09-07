@@ -31,6 +31,11 @@ const hackathonsSlice = createSlice({
         hackathon.id === action.payload.id ? action.payload : hackathon
       );
     },
+    deleteHackathon: (state, action: PayloadAction<number>) => {
+      state.hackathons = state.hackathons.filter(
+        (hackathon) => hackathon.id !== action.payload
+      );
+    },
     setFilter(
       state,
       action: PayloadAction<Partial<HackathonsState["filter"]>>
@@ -40,6 +45,6 @@ const hackathonsSlice = createSlice({
   },
 });
 
-export const { addHackathon, setFilter, editHackathon } =
+export const { addHackathon, setFilter, editHackathon, deleteHackathon } =
   hackathonsSlice.actions;
 export default hackathonsSlice.reducer;

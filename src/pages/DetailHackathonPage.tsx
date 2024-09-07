@@ -1,6 +1,6 @@
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { icons } from "../components/ui/assets";
 
 import {
@@ -14,15 +14,29 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
+import { useDispatch } from "react-redux";
+import { deleteHackathon } from "@/redux/hackathonsSlice";
 
 export default function DetailPage() {
   const { id } = useParams<{ id: string }>();
   const { hackathons } = useSelector((state: RootState) => state.hackathons);
   const event = hackathons.find((event) => event.id === parseInt(id as string));
 
+  const dispatch = useDispatch();
+  const naviate = useNavigate();
+
   if (!event) {
     return <div>Event not found</div>;
   }
+
+  
+  const handleDelete = () => {
+    if (id) {
+      dispatch(deleteHackathon(parseInt(id)));
+
+      naviate("/");
+    }
+  };
   return (
     <div className="min-h-screen w-full bg-gray-100 flex flex-col justify-start items-center ">
       <header className="bg-[#003145] w-full flex flex-col justify-between items-start p-6">
@@ -67,7 +81,7 @@ export default function DetailPage() {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Continue</AlertDialogAction>
+                  <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
