@@ -27,7 +27,7 @@ export default function Filter({
   const [open, setOpen] = useState(false);
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger  asChild>
+      <PopoverTrigger className=""  asChild>
         <Button
           variant="outline" 
           role="combobox"
@@ -45,7 +45,9 @@ export default function Filter({
             {filterSelectOptions.map((group, index) => (
               <div key={group.heading}>
                 <CommandGroup heading={group.heading}>
-                  {group.options.map((option) => (
+                  {group.options.map((option) => {
+                    const isChecked = handleCheckbox({ value: option, heading: group.heading });
+                    return (
                     <CommandItem
                       className="hover:bg-gray-100 my-px flex flex-row gap-2 cursor-pointer"
                       key={option}
@@ -55,18 +57,18 @@ export default function Filter({
                         setOpen(false);
                       }}
                     >
-                      <Checkbox checked={handleCheckbox({ value: option, heading: group.heading })} />
+                      <Checkbox className="border-[#003145]" checked={isChecked} />
                       <label
                         htmlFor={option}
-                        className="text-sm font-medium leading-none cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className={`text-sm  tex-[#666666] text leading-none cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70`}
                       >
-                        {option}
+                        <span className={`${isChecked ? "text-black" : "text-[#666666]"}`}>{option}</span>
                       </label>
                     </CommandItem>
-                  ))}
+                  )})}
                 </CommandGroup>
                 {index < filterSelectOptions.length - 1 && (
-                  <CommandSeparator className="bg-slate-200" />
+                  <CommandSeparator className="bg-slate-200 mx-3" />
                 )}
               </div>
             ))}

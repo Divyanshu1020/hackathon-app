@@ -76,7 +76,7 @@ export const hackathons: Hackathon[] = [
 export const filterSelectOptions = [
   {
     heading: "Status",
-    options: ["Upcoming", "Active", "Past"],
+    options: ["Active", "Upcoming",  "Past"],
   },
   {
     heading: "Level",
